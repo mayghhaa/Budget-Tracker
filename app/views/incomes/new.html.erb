@@ -1,0 +1,31 @@
+<%= form_with(model: @income, local: true) do |f| %>
+
+  <p>
+    <%= f.label :title %><br/>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :amount %><br/>
+    <%= f.number_field :amount %>
+  </p>
+
+  <p>
+    <%= f.label :category %><br/>
+    <%= f.text_field :category %>
+  </p>
+
+  <p>
+    <%= f.label :description %><br/>
+    <%= f.text_area :description %>
+  </p>
+
+  <p>
+    <%= f.label :date %><br/>
+    <%= f.date_field :date %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+
+<% end %>

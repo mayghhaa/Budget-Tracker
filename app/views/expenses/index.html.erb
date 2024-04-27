@@ -1,0 +1,9 @@
+this shows all expenses
+
+<h1>Total Expense: <%= number_to_currency(@total_expense, unit: '₹', precision: 2) %></h1>
+
+
+<!-- Render individual expense records -->
+<% @expenses.each do |expense| %>
+  <!-- Render each expense record -->
+<% end %>

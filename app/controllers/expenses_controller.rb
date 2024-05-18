@@ -38,6 +38,7 @@ class ExpensesController < ApplicationController
   end
 
   def destroy
+    @expense= Expense.find(params[:id])
     @expense.destroy
     redirect_to expenses_path
   end

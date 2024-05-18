@@ -25,5 +25,9 @@ class DashboardController < ApplicationController
       # Handle the case where no balance record exists
       @avl_balance = @total_income - @total_expense # Set a default value or handle the absence of balance record appropriately
     end
+
+
+    @incomes = Income.order(date: :desc)
+    @expenses = Expense.order(date: :desc)
   end
 end

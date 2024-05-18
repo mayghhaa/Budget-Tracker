@@ -1,5 +1,124 @@
+<div class="container-fluid">
+  
 <h1>Hi, Sarita</h1>
+<div class='grid-container'>
+<div class="grid-item"><h3>Total Income: <%= number_to_currency(@total_income, unit: '₹', precision: 2) %></h3></div>
+<div class="grid-item"><h3>Total Expense: <%= number_to_currency(@total_expense, unit: '₹', precision: 2) %></h3></div>
+<div class="grid-item"><h3>Avalable Balance: <%= number_to_currency(@avl_balance, unit: '₹', precision: 2) %></h3></div>
+</div>
+</br>
+<div>
+  <button class='button add-new' id="addNewButton">Add New</button>
+  <div class="new-track" style="display:none">
+  </br>
+    <button class='button'><%= link_to 'add new income', new_income_path %></button>
+    <button class='button'><%= link_to 'add new expense', new_expense_path %></button>
+  </div>
+</div>
+<div>
+    <h1>
+        Recent Transactions:
+    </h1>
+    <h1>Income and Expense Records</h1>
+<table>
+  <thead>
+    <tr>
+      <%# <th>Type</th> %>
+      <th>Title</th>
+      <th>Amount</th>
+      <th>Category</th>
+      <th>Date</th>
+      <th>description</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% (@incomes + @expenses).sort_by(&:date).reverse.each do |record| %>
+      <tr>
+        <%# <td><%= record.class.name %></td> 
+        <td><%= record.title %></td>
+        <td>
+          <% if record.class.name == "Income" %>
+            <span class="income-amount"><%= number_to_currency(record.amount,  unit: '₹', precision: 2) %></span>
+          <% else %>
+            <span class="expense-amount"><%= number_to_currency(record.amount,  unit: '₹', precision: 2) %></span>
+          <% end %>
+        </td>        <td><%= record.category %></td>
+        <td><%= record.date %></td>
+        <td><%= record.description %></td>
+        <% if record.class.name == "Income" %>
+        
+        <td><button><%= link_to 'Show', income_path(record) %></button></td>
+        <td><button><%= link_to 'Edit', edit_income_path(record) %></button></td>
+        <td><%= button_to 'Delete', income_path(record), method: :delete %></td>
+        <%else%>
+        
+        <td><button><%= link_to 'Show', expense_path(record) %></button></td>
+        <td><button><%= link_to 'Edit', edit_expense_path(record) %></button></td>
+        <td><%= button_to 'Delete', expense_path(record), method: :delete %></td>
+        <%end%>
+      </tr>
 
-<h1>Total Income: <%= number_to_currency(@total_income, unit: '₹', precision: 2) %></h1>
-<h1>Total Expense: <%= number_to_currency(@total_expense, unit: '₹', precision: 2) %></h1>
-<h1>Avalable Balance: <%= number_to_currency(@avl_balance, unit: '₹', precision: 2) %></h1>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+<script>
+  const addNewButton = document.getElementById('addNewButton');
+  const newTrackDiv = document.querySelector('.new-track');
+
+  addNewButton.addEventListener('click', function() {
+    if (newTrackDiv.style.display === 'none') {
+      newTrackDiv.style.display = 'block';
+    } else {
+      newTrackDiv.style.display = 'none';
+    }
+  });
+</script>
+<style>.income-amount {
+    color: green;
+  }
+
+  .expense-amount {
+    color: red;
+  }
+  
+  .grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+  padding: 5px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+    }
+
+
+  .add-new {
+  background-color: lightblue; /* Green */
+  border: 5px solid #2196F3;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+button{
+  background-color: lightblue; /* Green */
+  border: 3px solid #2196F3;
+  color: black;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+}
+  </style>
+

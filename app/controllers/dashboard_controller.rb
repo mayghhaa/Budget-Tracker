@@ -29,5 +29,7 @@ class DashboardController < ApplicationController
 
     @incomes = Income.order(date: :desc)
     @expenses = Expense.order(date: :desc)
+
+
   end
 end

@@ -4,6 +4,7 @@ class IncomesController < ApplicationController
   end
   def index
     @incomes = Income.all
+    @incomes.user=User.first
     @total_income = Income.sum(:amount)
   end
 
